@@ -223,7 +223,7 @@ export default function StudentsPage() {
             }}
             initialData={{
               name: editingStudent.name,
-              email: editingStudent.email,
+              email: editingStudent.email || '',
               age: editingStudent.age,
               subject: editingStudent.subject,
               level: editingStudent.level,

@@ -1,6 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+'use client';
+
+import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
@@ -12,7 +14,7 @@ interface Meeting {
   link: string;
 }
 
-export default function MeetIntegrationPage() {
+function MeetContent() {
   const { user } = useAuth();
   const searchParams = useSearchParams();
   const [meetLink, setMeetLink] = useState('');
@@ -239,5 +241,22 @@ export default function MeetIntegrationPage() {
         )}
       </div>
     </ProtectedRoute>
+  );
+}
+
+export default function MeetIntegrationPage() {
+  return (
+    <Suspense fallback={
+      <ProtectedRoute>
+        <Navbar />
+        <div className="page-container">
+          <div className="empty-state">
+            <div className="spinner" style={{ margin: '0 auto' }} />
+          </div>
+        </div>
+      </ProtectedRoute>
+    }>
+      <MeetContent />
+    </Suspense>
   );
 }

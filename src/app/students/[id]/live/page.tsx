@@ -65,18 +65,20 @@ export default function LiveSessionPage({ params }: PageProps) {
 
       const emotionalState = avgEngagement >= 2.5 ? 'engaged' : avgEngagement >= 1.5 ? 'neutral' : 'struggling';
 
-      setStudentContext({
-        name: student.name,
-        subject: student.subject,
-        level: student.level,
-        learningStyle: student.learningStyle,
-        interests: student.interests || [],
-        goals: student.goals || 'Master the subject',
-        avgEngagement,
-        avgUnderstanding,
-        emotionalState,
-        recentTopics
-      });
+      if (student) {
+        setStudentContext({
+          name: student.name,
+          subject: student.subject,
+          level: student.level,
+          learningStyle: student.learningStyle,
+          interests: student.interests || [],
+          goals: student.goals || 'Master the subject',
+          avgEngagement,
+          avgUnderstanding,
+          emotionalState,
+          recentTopics
+        });
+      }
     } catch (error) {
       console.error('Error loading student context:', error);
     }
